@@ -7,7 +7,7 @@
 1. Ve a [Google Sheets](https://sheets.google.com)
 2. Crea una nueva hoja llamada "Confirmaciones Boda"
 3. En la primera fila, añade estos encabezados:
-   - `Fecha` | `Nombre` | `Email` | `Teléfono` | `Asistencia` | `Acompañantes` | `Alergias` | `Comentarios`
+   - `Fecha` | `Nombre` | `Asistencia` | `Acompañado` | `Adultos` | `Niños` | `Alergias` | `Comentarios`
 
 ### 2. Crear el Google Apps Script
 
@@ -18,18 +18,26 @@
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data = JSON.parse(e.postData.contents);
+    
+    // Obtener los parámetros del formulario
+    var nombre = e.parameter.nombre || '';
+    var asistencia = e.parameter.asistencia || '';
+    var acompanado = e.parameter.acompanado || '';
+    var adultos = e.parameter.adultos || '0';
+    var ninos = e.parameter.ninos || '0';
+    var alergias = e.parameter.alergias || '';
+    var comentarios = e.parameter.comentarios || '';
     
     // Añadir fila con los datos
     sheet.appendRow([
       new Date(),
-      data.nombre,
-      data.email,
-      data.telefono,
-      data.asistencia,
-      data.acompanantes,
-      data.alergias,
-      data.comentarios
+      nombre,
+      asistencia,
+      acompanado,
+      adultos,
+      ninos,
+      alergias,
+      comentarios
     ]);
     
     return ContentService
@@ -57,49 +65,10 @@ function doPost(e) {
 
 ### 3. Actualizar el código HTML
 
-Reemplaza el script del formulario (líneas ~404-424) con este código:
+El código HTML ya está configurado con la URL del script. Si necesitas cambiarla, busca esta línea en el archivo HTML:
 
 ```javascript
-// Reemplaza 'TU_URL_AQUI' con la URL que copiaste del paso anterior
-const SCRIPT_URL = 'https://script.google.com/macros/s/ABC123.../exec';
-
-document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Deshabilitar el botón mientras se envía
-    const submitButton = this.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.textContent = 'Enviando...';
-    
-    const formData = new FormData(this);
-    const data = {};
-    formData.forEach((value, key) => {
-        data[key] = value;
-    });
-    
-    try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', // Importante para Google Apps Script
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        // Con mode: 'no-cors', siempre asumimos éxito si no hay error
-        document.getElementById('successMessage').style.display = 'block';
-        this.style.display = 'none';
-        document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-        
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
-    }
-});
+const SCRIPT_URL = 'https://script.google.com/macros/s/TU_URL_AQUI/exec';
 ```
 
 ### 4. Probar
@@ -108,12 +77,26 @@ document.getElementById('rsvpForm').addEventListener('submit', async function(e)
 2. Completa el formulario
 3. Verifica que los datos aparezcan en tu Google Sheet
 
+## Campos del formulario
+
+El formulario actual incluye:
+
+- **Nombre completo** (requerido): Nombre del invitado
+- **¿Asistirás a la boda?** (requerido): Sí / No
+- **¿Vendrás acompañado/a?** (requerido): Sí / No
+  - Si selecciona "Sí", aparecen:
+    - **Número de adultos acompañantes**: 0-5
+    - **Número de niños acompañantes**: 0-5
+- **Alergias e Intolerancias** (opcional): Texto libre
+- **Comentarios adicionales** (opcional): Texto libre
+
 ## Ventajas
 - ✅ Completamente gratis
 - ✅ Los datos se guardan automáticamente
 - ✅ Puedes ver y exportar los datos fácilmente
 - ✅ Puedes compartir la hoja con tu pareja o wedding planner
 - ✅ No requiere servidor propio
+- ✅ Diferenciación clara entre adultos y niños para planificación
 
 ## Notificaciones por Email (Opcional)
 
@@ -123,34 +106,46 @@ Si quieres recibir un email cada vez que alguien confirme, añade esto al Google
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data = JSON.parse(e.postData.contents);
+    
+    // Obtener los parámetros del formulario
+    var nombre = e.parameter.nombre || '';
+    var asistencia = e.parameter.asistencia || '';
+    var acompanado = e.parameter.acompanado || '';
+    var adultos = e.parameter.adultos || '0';
+    var ninos = e.parameter.ninos || '0';
+    var alergias = e.parameter.alergias || '';
+    var comentarios = e.parameter.comentarios || '';
     
     // Añadir fila con los datos
     sheet.appendRow([
       new Date(),
-      data.nombre,
-      data.email,
-      data.telefono,
-      data.asistencia,
-      data.acompanantes,
-      data.alergias,
-      data.comentarios
+      nombre,
+      asistencia,
+      acompanado,
+      adultos,
+      ninos,
+      alergias,
+      comentarios
     ]);
+    
+    // Construir información de acompañantes
+    var infoAcompanantes = "No";
+    if (acompanado === "si") {
+      infoAcompanantes = "Sí - Adultos: " + adultos + ", Niños: " + ninos;
+    }
     
     // Enviar email de notificación
     var emailBody = 
       "Nueva confirmación de asistencia:\n\n" +
-      "Nombre: " + data.nombre + "\n" +
-      "Email: " + data.email + "\n" +
-      "Teléfono: " + data.telefono + "\n" +
-      "Asistencia: " + data.asistencia + "\n" +
-      "Acompañantes: " + data.acompanantes + "\n" +
-      "Alergias: " + data.alergias + "\n" +
-      "Comentarios: " + data.comentarios;
+      "Nombre: " + nombre + "\n" +
+      "Asistencia: " + asistencia + "\n" +
+      "Acompañado: " + infoAcompanantes + "\n" +
+      "Alergias: " + (alergias || "Ninguna") + "\n" +
+      "Comentarios: " + (comentarios || "Ninguno");
     
     MailApp.sendEmail({
       to: "tu-email@gmail.com", // Cambia por tu email
-      subject: "Nueva confirmación de boda - " + data.nombre,
+      subject: "Nueva confirmación de boda - " + nombre,
       body: emailBody
     });
     
@@ -164,6 +159,35 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
+```
+
+## Análisis de datos útiles
+
+Con esta estructura, puedes crear fórmulas en Google Sheets para:
+
+**Total de asistentes confirmados:**
+```
+=COUNTIF(C:C,"si")
+```
+
+**Total de adultos (incluyendo invitados principales que asisten):**
+```
+=COUNTIF(C:C,"si") + SUMIF(C:C,"si",E:E)
+```
+
+**Total de niños:**
+```
+=SUMIF(C:C,"si",F:F)
+```
+
+**Total general de personas:**
+```
+=COUNTIF(C:C,"si") + SUMIF(C:C,"si",E:E) + SUMIF(C:C,"si",F:F)
+```
+
+**Personas con alergias:**
+```
+=COUNTIF(G:G,"<>")
 ```
 
 ## Solución de Problemas
@@ -180,3 +204,8 @@ function doPost(e) {
 **Problema**: El formulario no se envía
 - Abre la consola del navegador (F12) y busca errores
 - Verifica que SCRIPT_URL esté correctamente configurado
+- Revisa el console.log para ver qué datos se están enviando
+
+**Problema**: La sección de acompañantes no aparece
+- Verifica que hayas seleccionado "Sí" en "¿Vendrás acompañado/a?"
+- La sección aparece/desaparece automáticamente según la selección

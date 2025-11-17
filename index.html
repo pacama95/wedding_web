@@ -679,13 +679,11 @@
         document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Deshabilitar el botón mientras se envía
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
             
-            // Capturar los datos del formulario correctamente
             const formData = new FormData(this);
             const acompanado = formData.get('acompanado');
             
@@ -699,19 +697,23 @@
                 comentarios: formData.get('comentarios') || ''
             };
             
-            console.log('Datos a enviar:', data); // Para debug
+            console.log('Datos a enviar:', data);
             
             try {
+                const params = new URLSearchParams();
+                params.append('nombre', data.nombre);
+                params.append('asistencia', data.asistencia);
+                params.append('acompanado', data.acompanado);
+                params.append('adultos', data.adultos);
+                params.append('ninos', data.ninos);
+                params.append('alergias', data.alergias);
+                params.append('comentarios', data.comentarios);
+                
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
+                    body: params
                 });
                 
-                // Con mode: 'no-cors', asumimos éxito si no hay error
                 document.getElementById('successMessage').style.display = 'block';
                 this.style.display = 'none';
                 document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });

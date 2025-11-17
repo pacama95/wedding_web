@@ -10,7 +10,10 @@ Una elegante página web para bodas, completamente responsive y personalizable.
 - 📍 Información detallada de ceremonia y celebración
 - ⏰ Itinerario completo del evento
 - 📝 Formulario de confirmación de asistencia con:
-  - Gestión de acompañantes
+  - Confirmación Sí/No
+  - Opción de asistir acompañado
+  - Número de adultos acompañantes (0-5)
+  - Número de niños acompañantes (0-5)
   - Campo para alergias e intolerancias alimentarias
   - Comentarios adicionales
 - 🎨 Paleta de colores elegante en tonos dorados y tierra
@@ -115,21 +118,42 @@ Luego actualiza las referencias de `font-family` en el CSS.
 
 ### 7. Formulario de Confirmación
 
-El formulario actualmente muestra un mensaje de éxito localmente. Para enviar los datos a un servidor:
+El formulario actualmente envía datos a Google Sheets usando Google Apps Script.
 
-**Opción 1 - Google Forms:**
-1. Crea un Google Form con los mismos campos
-2. Usa un servicio como [Formspree](https://formspree.io/) o [Form Submit](https://formsubmit.co/)
-3. Reemplaza la función de JavaScript (líneas ~404-424)
+**Estructura actual del formulario:**
+- Nombre completo (requerido)
+- ¿Asistirás a la boda? (Sí/No - requerido)
+- ¿Vendrás acompañado/a? (Sí/No - requerido)
+  - Si es "Sí", se muestran:
+    - Número de adultos acompañantes (0-5)
+    - Número de niños acompañantes (0-5)
+- Alergias e intolerancias (opcional)
+- Comentarios adicionales (opcional)
 
-**Opción 2 - Backend propio:**
+**Para configurar el almacenamiento:**
+
+Ver el archivo `google-sheets-integration.md` para instrucciones detalladas.
+
+**Campos que se envían:**
 ```javascript
-fetch('https://tu-api.com/rsvp', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-})
+{
+  nombre: "Nombre del invitado",
+  asistencia: "si" o "no",
+  acompanado: "si" o "no",
+  adultos: "0" a "5",
+  ninos: "0" a "5",
+  alergias: "texto libre",
+  comentarios: "texto libre"
+}
 ```
+
+**Otras opciones disponibles:**
+- Formspree (email notifications)
+- Firebase (base de datos en tiempo real)
+- EmailJS (envío directo por email)
+- Backend propio
+
+Ver `storage-options.md` para más alternativas.
 
 ### 8. Añadir Mapa de Ubicación
 
