@@ -248,6 +248,55 @@
             font-size: 1.05em;
         }
 
+        .transport-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .transport-card {
+            background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ed 100%);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 5px solid #d4af7a;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .transport-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .transport-card h3 {
+            color: #8b6f47;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        .transport-card p {
+            margin: 12px 0;
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .bus-route {
+            background: rgba(212,175,122,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #d4af7a;
+        }
+
+        .bus-route strong {
+            color: #8b6f47;
+            display: block;
+            margin-bottom: 8px;
+        }
+
         .venue-card p strong {
             color: #8b6f47;
             font-weight: 600;
@@ -566,6 +615,28 @@
         </section>
 
         <section>
+            <h2>🚌 Información de Transporte</h2>
+            <div class="transport-info">
+                <div class="transport-card">
+                    <h3>🚍 Autobús</h3>
+                    <div id="busInfo">
+                        <!-- Bus information will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <div class="transport-card">
+                    <h3>🅿️ Aparcamiento</h3>
+                    <p id="parkingInfo"></p>
+                </div>
+                
+                <div class="transport-card">
+                    <h3>🚖 Taxi / Uber / Cabify</h3>
+                    <p id="taxiInfo"></p>
+                </div>
+            </div>
+        </section>
+
+        <section>
             <h2>Confirma tu Asistencia</h2>
             <form id="rsvpForm">
                 <div class="form-group">
@@ -717,7 +788,25 @@
                     titulo: 'Fin',
                     descripcion: 'Fin de la fiesta'
                 }
-            ]
+            ],
+            
+            // Transportation Information
+            transporte: {
+                autobus: {
+                    ida: {
+                        lugar: 'Paseo de Recoletos',
+                        hora: '12:45',
+                        descripcion: 'El autobús saldrá hacia la finca'
+                    },
+                    vuelta: {
+                        lugar: 'Finca La Gaivota',
+                        hora: '23:30',
+                        descripcion: 'El autobús regresará al punto de partida'
+                    }
+                },
+                aparcamiento: 'Por favor, tened en cuenta que el aparcamiento en la zona de la ceremonia es limitado. Os recomendamos usar transporte público o compartir coche.',
+                taxi: 'Recomendamos usar Uber, Cabify o taxis para mayor comodidad. Las aplicaciones funcionan perfectamente en ambas ubicaciones.'
+            }
         };
         
         const SCRIPT_URL = CONFIG.scriptUrl;
@@ -754,6 +843,26 @@
                 `;
                 itinerarioContainer.appendChild(item);
             });
+            
+            // Load transportation information
+            const busInfo = document.getElementById('busInfo');
+            busInfo.innerHTML = `
+                <div class="bus-route">
+                    <strong>🚍 Ida a la Ceremonia</strong>
+                    <p><strong>Lugar de salida:</strong> ${CONFIG.transporte.autobus.ida.lugar}</p>
+                    <p><strong>Hora:</strong> ${CONFIG.transporte.autobus.ida.hora}</p>
+                    <p>${CONFIG.transporte.autobus.ida.descripcion}</p>
+                </div>
+                <div class="bus-route">
+                    <strong>🚍 Vuelta desde la Celebración</strong>
+                    <p><strong>Lugar de salida:</strong> ${CONFIG.transporte.autobus.vuelta.lugar}</p>
+                    <p><strong>Hora:</strong> ${CONFIG.transporte.autobus.vuelta.hora}</p>
+                    <p>${CONFIG.transporte.autobus.vuelta.descripcion}</p>
+                </div>
+            `;
+            
+            document.getElementById('parkingInfo').textContent = CONFIG.transporte.aparcamiento;
+            document.getElementById('taxiInfo').textContent = CONFIG.transporte.taxi;
         });
         
         // Function to show/hide companions section

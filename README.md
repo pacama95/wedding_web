@@ -10,6 +10,7 @@ Una elegante página web para bodas, completamente responsive y personalizable.
 - 📍 Información detallada de ceremonia y celebración
 - 🗺️ Mapas de Google Maps integrados para ambos lugares
 - ⏰ Itinerario completo del evento (configurable dinámicamente)
+- 🚌 Información de transporte (autobús, aparcamiento, taxi/Uber)
 - ⚙️ Configuración centralizada para fácil personalización
 - 📝 Formulario de confirmación de asistencia con:
   - Confirmación Sí/No
@@ -109,6 +110,26 @@ Para añadir más eventos al itinerario, simplemente añade objetos al array:
     hora: '20:00',
     titulo: 'Barra Libre',
     descripcion: 'Cócteles y diversión'
+}
+```
+
+**Información de Transporte:**
+```javascript
+transporte: {
+    autobus: {
+        ida: {
+            lugar: 'Plaza de Cibeles',
+            hora: '10:45',
+            descripcion: 'El autobús saldrá hacia la ceremonia'
+        },
+        vuelta: {
+            lugar: 'Finca La Gaivota',
+            hora: '23:30',
+            descripcion: 'El autobús regresará al punto de partida'
+        }
+    },
+    aparcamiento: 'Mensaje sobre aparcamiento limitado...',
+    taxi: 'Recomendaciones sobre Uber/Cabify/Taxi...'
 }
 ```
 
