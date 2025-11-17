@@ -561,7 +561,7 @@
         <section>
             <h2>Itinerario</h2>
             <div class="itinerary" id="itinerarioContainer">
-                <!-- Los eventos se cargarán dinámicamente desde CONFIG -->
+                <!-- Events will be loaded dynamically from CONFIG -->
             </div>
         </section>
 
@@ -653,27 +653,27 @@
 
     <script>
         // ============================================
-        // CONFIGURACIÓN DE LA WEB
+        // WEBSITE CONFIGURATION
         // ============================================
         const CONFIG = {
-            // URL del Google Apps Script para el formulario
-            scriptUrl: 'https://script.google.com/macros/s/AKfycbybfEZGyto3BJH9JZ2NK-bdcHdoe97FRFjC8tU9Osg0uzrkCBsRKSrH1pycz7cK8GrCcQ/exec',
+            // Google Apps Script URL for form submission
+            scriptUrl: 'https://script.google.com/macros/s/AKfycbxE-K6CiNsPQRESsBHWyx8pe1Jy-RY7hBAjQiC2Uo9oDyRBkB_wxIu0SM05npyZ50TSFw/exec',
             
-            // Información de la Ceremonia
+            // Ceremony Information
             ceremonia: {
                 lugar: 'Santa Bárbara',
                 direccion: 'Calle del Gral. Castaños, 2, Centro, 28004 Madrid',
                 hora: '11:30'
             },
             
-            // Información de la Celebración
+            // Celebration Information
             celebracion: {
                 lugar: 'Finca La Gaivota',
                 direccion: 'C. Ardales, s/n, Moncloa - Aravaca, 28023 Madrid',
                 hora: '13:00'
             },
             
-            // Itinerario de eventos
+            // Event Itinerary
             itinerario: [
                 {
                     hora: '11:30',
@@ -700,19 +700,19 @@
         
         const SCRIPT_URL = CONFIG.scriptUrl;
 
-        // Cargar configuración al iniciar la página
+        // Load configuration on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Cargar información de ceremonia
+            // Load ceremony information
             document.getElementById('ceremoniaLugar').textContent = CONFIG.ceremonia.lugar;
             document.getElementById('ceremoniaDireccion').textContent = CONFIG.ceremonia.direccion;
             document.getElementById('ceremoniaHora').textContent = CONFIG.ceremonia.hora;
             
-            // Cargar información de celebración
+            // Load celebration information
             document.getElementById('celebracionLugar').textContent = CONFIG.celebracion.lugar;
             document.getElementById('celebracionDireccion').textContent = CONFIG.celebracion.direccion;
             document.getElementById('celebracionHora').textContent = CONFIG.celebracion.hora;
             
-            // Cargar itinerario dinámicamente
+            // Load itinerary dynamically
             const itinerarioContainer = document.getElementById('itinerarioContainer');
             CONFIG.itinerario.forEach(evento => {
                 const item = document.createElement('div');
@@ -728,14 +728,14 @@
             });
         });
         
-        // Función para mostrar/ocultar sección de acompañantes
+        // Function to show/hide companions section
         function toggleAcompanantes(show) {
             const section = document.getElementById('acompanantesSection');
             if (show) {
                 section.style.display = 'block';
             } else {
                 section.style.display = 'none';
-                // Reset valores cuando se oculta
+                // Reset values when hidden
                 document.getElementById('adultos').value = '0';
                 document.getElementById('ninos').value = '0';
             }
@@ -762,8 +762,7 @@
                 comentarios: formData.get('comentarios') || ''
             };
             
-            console.log('Datos a enviar:', data);
-            
+            console.log('Data to send:', data); // For debugging          
             try {
                 const params = new URLSearchParams();
                 params.append('nombre', data.nombre);
@@ -774,18 +773,23 @@
                 params.append('alergias', data.alergias);
                 params.append('comentarios', data.comentarios);
                 
+                console.log('Sending parameters:', params.toString());
+                
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: params
                 });
                 
+                console.log('Response received:', response.status);
+                
+                // Show success message
                 document.getElementById('successMessage').style.display = 'block';
                 this.style.display = 'none';
                 document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
                 
             } catch (error) {
-                console.error('Error:', error);
-                alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.');
+                console.error('Complete error:', error);
+                alert('Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.\n\nRevisa la consola (F12) para más detalles.');
                 submitButton.disabled = false;
                 submitButton.textContent = originalText;
             }
