@@ -597,14 +597,43 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="acompanantes">Número de acompañantes</label>
-                    <select id="acompanantes" name="acompanantes">
-                        <option value="0">Solo yo</option>
-                        <option value="1">1 acompañante</option>
-                        <option value="2">2 acompañantes</option>
-                        <option value="3">3 acompañantes</option>
-                        <option value="4">4 acompañantes</option>
-                    </select>
+                    <label>¿Vendrás acompañado/a? *</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="acompanado" value="si" required onchange="toggleAcompanantes(true)">
+                            Sí
+                        </label>
+                        <label>
+                            <input type="radio" name="acompanado" value="no" onchange="toggleAcompanantes(false)">
+                            No, asistiré solo/a
+                        </label>
+                    </div>
+                </div>
+
+                <div id="acompanantesSection" style="display: none;">
+                    <div class="form-group">
+                        <label for="adultos">Número de adultos acompañantes</label>
+                        <select id="adultos" name="adultos">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ninos">Número de niños acompañantes</label>
+                        <select id="ninos" name="ninos">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -634,6 +663,19 @@
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybfEZGyto3BJH9JZ2NK-bdcHdoe97FRFjC8tU9Osg0uzrkCBsRKSrH1pycz7cK8GrCcQ/exec';
 
+        // Función para mostrar/ocultar sección de acompañantes
+        function toggleAcompanantes(show) {
+            const section = document.getElementById('acompanantesSection');
+            if (show) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+                // Reset valores cuando se oculta
+                document.getElementById('adultos').value = '0';
+                document.getElementById('ninos').value = '0';
+            }
+        }
+
         document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -643,11 +685,21 @@
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
             
+            // Capturar los datos del formulario correctamente
             const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
+            const acompanado = formData.get('acompanado');
+            
+            const data = {
+                nombre: formData.get('nombre'),
+                asistencia: formData.get('asistencia'),
+                acompanado: acompanado,
+                adultos: acompanado === 'si' ? formData.get('adultos') : '0',
+                ninos: acompanado === 'si' ? formData.get('ninos') : '0',
+                alergias: formData.get('alergias') || '',
+                comentarios: formData.get('comentarios') || ''
+            };
+            
+            console.log('Datos a enviar:', data); // Para debug
             
             try {
                 const response = await fetch(SCRIPT_URL, {
