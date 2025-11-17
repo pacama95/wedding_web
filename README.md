@@ -40,7 +40,17 @@ Simplemente abre el archivo HTML en tu navegador web favorito.
 
 ### 1. Configuración Centralizada
 
-Toda la configuración de la web se encuentra en el objeto `CONFIG` al inicio del `<script>` (líneas ~640-681). Aquí puedes modificar:
+Toda la configuración de la web se encuentra en el objeto `CONFIG` al inicio del `<script>` (líneas ~668-720). Aquí puedes modificar:
+
+**Fecha de la Boda:**
+```javascript
+weddingDate: '25 de Abril de 2026'
+```
+
+**URL de la Foto:**
+```javascript
+photoUrl: 'https://i.imgur.com/YOUR_IMAGE.jpg'
+```
 
 **Información de la Ceremonia:**
 ```javascript
@@ -72,27 +82,22 @@ itinerario: [
 ]
 ```
 
-### 2. Nombres y Fecha
+### 2. Nombres
 
-Busca y reemplaza los siguientes textos en el archivo HTML:
+Busca y reemplaza los nombres en el archivo HTML:
 
-- **Nombres**: `Pablo & Paula` (línea ~513)
-- **Fecha**: Añade la fecha debajo de "Nos casamos" (línea ~514)
+- **Nombres**: `Pablo & Paula` (línea ~525)
+
+**Nota:** La fecha ahora se configura en el objeto CONFIG (ver punto 1)
 
 ### 3. Foto de los Novios
 
-Reemplaza el `div` con clase `photo-placeholder` (línea ~519-522) con:
+**Nota:** La foto ahora se configura en el objeto CONFIG (ver punto 1). Solo necesitas actualizar la URL.
 
-```html
-<img src="ruta-de-tu-foto.jpg" 
-     alt="Pablo y Paula" 
-     style="width: 100%; max-width: 700px; border-radius: 15px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);">
-```
-
-**Opciones para la foto:**
-- **Opción 1**: Sube la foto al mismo directorio y usa: `src="foto-boda.jpg"`
-- **Opción 2**: Usa un servicio de hosting de imágenes (Imgur, Cloudinary) y usa la URL
-- **Opción 3**: Súbela a la carpeta del repositorio de GitHub
+**Opciones para obtener la URL de la foto:**
+- **Opción 1 (Recomendada)**: Sube a [Imgur](https://imgur.com/upload), copia la URL de la imagen
+- **Opción 2**: Usa GitHub Issues - arrastra la foto en un issue, copia la URL generada
+- **Opción 3**: Sube la foto a la carpeta del repositorio y usa: `./nombre-foto.jpg`
 
 ### 4. Información de Lugares e Itinerario
 
