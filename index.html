@@ -628,6 +628,17 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="autobus">¿Necesitas autobús? *</label>
+                    <select id="autobus" name="autobus" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="solo_ida">Solo ida</option>
+                        <option value="solo_vuelta">Solo vuelta</option>
+                        <option value="ida_y_vuelta">Ida y vuelta</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="alergias">Alergias e Intolerancias Alimentarias</label>
                     <textarea id="alergias" name="alergias" placeholder="Por favor, indícanos si tú o tus acompañantes tenéis alguna alergia o intolerancia alimentaria (gluten, lactosa, frutos secos, etc.)"></textarea>
                 </div>
@@ -657,7 +668,7 @@
         // ============================================
         const CONFIG = {
             // Google Apps Script URL for form submission
-            scriptUrl: 'https://script.google.com/macros/s/AKfycbxE-K6CiNsPQRESsBHWyx8pe1Jy-RY7hBAjQiC2Uo9oDyRBkB_wxIu0SM05npyZ50TSFw/exec',
+            scriptUrl: 'https://script.google.com/macros/s/AKfycbyUTteAvqeo1jA3_baDEjEJai5QSyBCmiHGYIyprMqf-IhftI3flxFWn8QtgrMfBI8D/exec',
             
             // Ceremony Information
             ceremonia: {
@@ -694,6 +705,11 @@
                     hora: '17:00',
                     titulo: 'Baile',
                     descripcion: 'Fiesta y celebración hasta la noche'
+                },
+                {
+                    hora: '23:00',
+                    titulo: 'Fin',
+                    descripcion: 'Fin de la fiesta'
                 }
             ]
         };
@@ -758,6 +774,7 @@
                 acompanado: acompanado,
                 adultos: acompanado === 'si' ? formData.get('adultos') : '0',
                 ninos: acompanado === 'si' ? formData.get('ninos') : '0',
+                autobus: formData.get('autobus') || 'no',
                 alergias: formData.get('alergias') || '',
                 comentarios: formData.get('comentarios') || ''
             };
@@ -770,6 +787,7 @@
                 params.append('acompanado', data.acompanado);
                 params.append('adultos', data.adultos);
                 params.append('ninos', data.ninos);
+                params.append('autobus', data.autobus);
                 params.append('alergias', data.alergias);
                 params.append('comentarios', data.comentarios);
                 

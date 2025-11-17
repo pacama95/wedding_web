@@ -7,7 +7,7 @@
 1. Ve a [Google Sheets](https://sheets.google.com)
 2. Crea una nueva hoja llamada "Confirmaciones Boda"
 3. En la primera fila, añade estos encabezados:
-   - `Fecha` | `Nombre` | `Asistencia` | `Acompañado` | `Adultos` | `Niños` | `Alergias` | `Comentarios`
+   - `Fecha` | `Nombre` | `Asistencia` | `Acompañado` | `Adultos` | `Niños` | `Autobús` | `Alergias` | `Comentarios`
 
 ### 2. Crear el Google Apps Script
 
@@ -25,6 +25,7 @@ function doPost(e) {
     var acompanado = e.parameter.acompanado || '';
     var adultos = e.parameter.adultos || '0';
     var ninos = e.parameter.ninos || '0';
+    var autobus = e.parameter.autobus || 'no';
     var alergias = e.parameter.alergias || '';
     var comentarios = e.parameter.comentarios || '';
     
@@ -36,6 +37,7 @@ function doPost(e) {
       acompanado,
       adultos,
       ninos,
+      autobus,
       alergias,
       comentarios
     ]);
@@ -87,6 +89,7 @@ El formulario actual incluye:
   - Si selecciona "Sí", aparecen:
     - **Número de adultos acompañantes**: 0-5
     - **Número de niños acompañantes**: 0-5
+- **¿Necesitas autobús?** (requerido): Solo ida / Solo vuelta / Ida y vuelta / No
 - **Alergias e Intolerancias** (opcional): Texto libre
 - **Comentarios adicionales** (opcional): Texto libre
 
@@ -113,6 +116,7 @@ function doPost(e) {
     var acompanado = e.parameter.acompanado || '';
     var adultos = e.parameter.adultos || '0';
     var ninos = e.parameter.ninos || '0';
+    var autobus = e.parameter.autobus || 'no';
     var alergias = e.parameter.alergias || '';
     var comentarios = e.parameter.comentarios || '';
     
@@ -124,6 +128,7 @@ function doPost(e) {
       acompanado,
       adultos,
       ninos,
+      autobus,
       alergias,
       comentarios
     ]);
@@ -140,6 +145,7 @@ function doPost(e) {
       "Nombre: " + nombre + "\n" +
       "Asistencia: " + asistencia + "\n" +
       "Acompañado: " + infoAcompanantes + "\n" +
+      "Autobús: " + autobus + "\n" +
       "Alergias: " + (alergias || "Ninguna") + "\n" +
       "Comentarios: " + (comentarios || "Ninguno");
     

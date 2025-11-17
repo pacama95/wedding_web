@@ -16,6 +16,7 @@ Una elegante página web para bodas, completamente responsive y personalizable.
   - Opción de asistir acompañado
   - Número de adultos acompañantes (0-5)
   - Número de niños acompañantes (0-5)
+  - Selección de transporte en autobús (Solo ida / Solo vuelta / Ida y vuelta / No)
   - Campo para alergias e intolerancias alimentarias
   - Comentarios adicionales
 - 🎨 Paleta de colores elegante en tonos dorados y tierra
@@ -151,6 +152,7 @@ El formulario actualmente envía datos a Google Sheets usando Google Apps Script
   - Si es "Sí", se muestran:
     - Número de adultos acompañantes (0-5)
     - Número de niños acompañantes (0-5)
+- ¿Necesitas autobús? (Solo ida / Solo vuelta / Ida y vuelta / No - requerido)
 - Alergias e intolerancias (opcional)
 - Comentarios adicionales (opcional)
 
@@ -166,6 +168,7 @@ Ver el archivo `google-sheets-integration.md` para instrucciones detalladas.
   acompanado: "si" o "no",
   adultos: "0" a "5",
   ninos: "0" a "5",
+  autobus: "solo_ida", "solo_vuelta", "ida_y_vuelta" o "no",
   alergias: "texto libre",
   comentarios: "texto libre"
 }
