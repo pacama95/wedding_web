@@ -8,7 +8,9 @@ Una elegante página web para bodas, completamente responsive y personalizable.
 - 📱 Totalmente responsive (se adapta a móviles, tablets y escritorio)
 - 🖼️ Sección para foto de los novios
 - 📍 Información detallada de ceremonia y celebración
-- ⏰ Itinerario completo del evento
+- 🗺️ Mapas de Google Maps integrados para ambos lugares
+- ⏰ Itinerario completo del evento (configurable dinámicamente)
+- ⚙️ Configuración centralizada para fácil personalización
 - 📝 Formulario de confirmación de asistencia con:
   - Confirmación Sí/No
   - Opción de asistir acompañado
@@ -35,16 +37,50 @@ Simplemente abre el archivo HTML en tu navegador web favorito.
 
 ## 🎨 Personalización
 
-### 1. Información Básica
+### 1. Configuración Centralizada
+
+Toda la configuración de la web se encuentra en el objeto `CONFIG` al inicio del `<script>` (líneas ~640-681). Aquí puedes modificar:
+
+**Información de la Ceremonia:**
+```javascript
+ceremonia: {
+    lugar: 'Iglesia de San Miguel',
+    direccion: 'Calle Principal 123, Madrid',
+    hora: '12:00 PM'
+}
+```
+
+**Información de la Celebración:**
+```javascript
+celebracion: {
+    lugar: 'Finca Los Olivos',
+    direccion: 'Carretera de Toledo km 15, Madrid',
+    hora: '14:00 PM'
+}
+```
+
+**Itinerario de Eventos:**
+```javascript
+itinerario: [
+    {
+        hora: '12:00',
+        titulo: 'Ceremonia',
+        descripcion: 'Bienvenida y ceremonia de boda'
+    },
+    // Añade más eventos aquí
+]
+```
+
+### 2. Nombres y Fecha
 
 Busca y reemplaza los siguientes textos en el archivo HTML:
 
-- **Nombres**: `Pablo & Paula` (línea ~186)
-- **Fecha**: Añade la fecha debajo de "Nos casamos" (línea ~187)
+- **Nombres**: `Pablo & Paula` (línea ~513)
+- **Fecha**: Añade la fecha debajo de "Nos casamos" (línea ~514)
 
-### 2. Foto de los Novios
+### 3. Foto de los Novios
 
-Reemplaza el `div` con clase `photo-placeholder` (línea ~195-202) con:
+Reemplaza el `div` con clase `photo-placeholder` (línea ~519-522) con:
 
 ```html
 <img src="ruta-de-tu-foto.jpg" 
@@ -57,39 +93,27 @@ Reemplaza el `div` con clase `photo-placeholder` (línea ~195-202) con:
 - **Opción 2**: Usa un servicio de hosting de imágenes (Imgur, Cloudinary) y usa la URL
 - **Opción 3**: Súbela a la carpeta del repositorio de GitHub
 
-### 3. Información de Lugares
+### 4. Información de Lugares e Itinerario
 
-**Ceremonia** (líneas ~210-214):
-```html
-<p><strong>Lugar:</strong> Iglesia de San Miguel</p>
-<p><strong>Dirección:</strong> Calle Principal 123, Madrid</p>
-<p><strong>Hora:</strong> 12:00 PM</p>
+**Ahora todo se configura desde el objeto CONFIG** (ver punto 1). Los cambios se aplican automáticamente en toda la web.
+
+Para añadir más eventos al itinerario, simplemente añade objetos al array:
+```javascript
+{
+    hora: '20:00',
+    titulo: 'Barra Libre',
+    descripcion: 'Cócteles y diversión'
+}
 ```
 
-**Celebración** (líneas ~217-221):
-```html
-<p><strong>Lugar:</strong> Finca Los Olivos</p>
-<p><strong>Dirección:</strong> Carretera de Toledo km 15, Madrid</p>
-<p><strong>Hora:</strong> 14:00 PM</p>
+### 5. URL del Google Apps Script
+
+En el objeto CONFIG, actualiza la URL de tu script:
+```javascript
+scriptUrl: 'https://script.google.com/macros/s/TU_URL_AQUI/exec'
 ```
 
-### 4. Itinerario
-
-Modifica los horarios y eventos (líneas ~230-268):
-
-```html
-<div class="itinerary-item">
-    <div class="time">12:00</div>
-    <div class="event-details">
-        <h4>Ceremonia</h4>
-        <p>Descripción del evento</p>
-    </div>
-</div>
-```
-
-Puedes añadir más eventos copiando y pegando este bloque.
-
-### 5. Colores del Sitio
+### 6. Colores del Sitio
 
 Los colores principales se definen en las variables CSS. Busca estos valores y cámbialos:
 
@@ -103,7 +127,7 @@ Ejemplo para cambiar el color principal a azul:
 #4a7c8b
 ```
 
-### 6. Tipografías
+### 7. Tipografías
 
 Las fuentes actuales son:
 - **Títulos**: Playfair Display (serif elegante)
@@ -116,7 +140,7 @@ Para cambiar, modifica la línea ~6:
 
 Luego actualiza las referencias de `font-family` en el CSS.
 
-### 7. Formulario de Confirmación
+### 8. Formulario de Confirmación
 
 El formulario actualmente envía datos a Google Sheets usando Google Apps Script.
 
@@ -155,28 +179,29 @@ Ver el archivo `google-sheets-integration.md` para instrucciones detalladas.
 
 Ver `storage-options.md` para más alternativas.
 
-### 8. Añadir Mapa de Ubicación
+### 9. Mapas de Ubicación
 
-Añade un mapa de Google Maps después de la información de lugares:
+Los mapas de Google Maps ya están integrados en las tarjetas de ceremonia y celebración. Para cambiarlos:
 
+1. Ve a [Google Maps](https://www.google.com/maps)
+2. Busca tu ubicación
+3. Click en **"Compartir"** > **"Incorporar un mapa"**
+4. Copia el código iframe
+5. Reemplaza el iframe existente en el HTML (líneas ~534 para ceremonia, ~543 para celebración)
+
+**Ejemplo:**
 ```html
-<div style="margin-top: 30px;">
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=TU_CODIGO_DE_EMBED"
+<iframe src="https://www.google.com/maps/embed?pb=TU_CODIGO_AQUI" 
         width="100%" 
-        height="400" 
-        style="border:0; border-radius: 10px;" 
+        height="300" 
+        style="border:0; border-radius: 8px; margin-top: 20px;" 
         allowfullscreen="" 
-        loading="lazy">
-    </iframe>
-</div>
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+</iframe>
 ```
 
-Para obtener el código:
-1. Ve a Google Maps
-2. Busca tu ubicación
-3. Click en "Compartir" > "Incorporar un mapa"
-4. Copia el código iframe
+Los mapas son completamente responsive y se adaptan a todos los dispositivos.
 
 ## 📋 Estructura del Archivo
 
