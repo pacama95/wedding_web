@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda de Pablo y Paula</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.8;
+            color: #2c2c2c;
+            background: linear-gradient(to bottom, #fdfbf7 0%, #f5f0e8 100%);
+            overflow-x: hidden;
+        }
+
+        header {
+            position: relative;
+            background: linear-gradient(135deg, #e8dcc4 0%, #d4c4a8 50%, #c9b896 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 20px 100px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: shimmer 8s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        header p {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.6em;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.2s ease-out 0.3s backwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            background: white;
+            margin: 50px 0;
+            padding: 60px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: #8b6f47;
+            font-size: 3em;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #d4af7a, transparent);
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            color: #8b6f47;
+            font-size: 2em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .photo-section {
+            text-align: center;
+            padding: 70px 40px;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ed 100%);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            max-width: 700px;
+            height: 450px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #e8dcc4 0%, #d4c4a8 50%, #c9b896 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3em;
+            text-align: center;
+            padding: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .venue-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .venue-card {
+            background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ed 100%);
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 5px solid #d4af7a;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .venue-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(212,175,122,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .venue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            border-left-color: #8b6f47;
+        }
+
+        .venue-card h3 {
+            margin-top: 0;
+            color: #8b6f47;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+        }
+
+        .venue-card p {
+            margin: 15px 0;
+            line-height: 2;
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .venue-card p strong {
+            color: #8b6f47;
+            font-weight: 600;
+        }
+
+        .itinerary {
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .itinerary::before {
+            content: '';
+            position: absolute;
+            left: 85px;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #d4af7a, #c9b896);
+        }
+
+        .itinerary-item {
+            display: flex;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ed 100%);
+            border-radius: 12px;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .itinerary-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .time {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: #8b6f47;
+            min-width: 120px;
+            margin-right: 30px;
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-details h4 {
+            font-family: 'Playfair Display', serif;
+            color: #8b6f47;
+            margin-bottom: 8px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .event-details p {
+            color: #666;
+            font-size: 1.05em;
+        }
+
+        .form-group {
+            margin: 30px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #8b6f47;
+            font-weight: 600;
+            font-size: 1.05em;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #e8dcc4;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-family: 'Lato', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #8b6f47;
+            box-shadow: 0 0 0 4px rgba(139, 111, 71, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+            padding: 12px 20px;
+            border: 2px solid #e8dcc4;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .radio-group label:hover {
+            border-color: #d4af7a;
+            background: #fdfbf7;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            accent-color: #8b6f47;
+        }
+
+        .radio-group input[type="radio"]:checked + label {
+            border-color: #8b6f47;
+            background: #fdfbf7;
+        }
+
+        button {
+            background: linear-gradient(135deg, #8b6f47 0%, #6f5838 100%);
+            color: white;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(139, 111, 71, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(139, 111, 71, 0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #b1dfbb;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(21, 87, 36, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #e8dcc4 0%, #d4c4a8 100%);
+            color: white;
+            margin-top: 60px;
+            font-size: 1.1em;
+        }
+
+        footer p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3em;
+            margin: 10px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3em;
+                letter-spacing: 2px;
+            }
+
+            header p {
+                font-size: 1.2em;
+                letter-spacing: 2px;
+            }
+
+            section {
+                padding: 40px 25px;
+                margin: 30px 0;
+            }
+
+            h2 {
+                font-size: 2.2em;
+            }
+
+            .venue-info {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .itinerary::before {
+                left: 50px;
+            }
+
+            .itinerary-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 25px;
+            }
+
+            .time {
+                margin-bottom: 15px;
+                font-size: 1.6em;
+                min-width: auto;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .radio-group label {
+                width: 100%;
+            }
+
+            .photo-placeholder {
+                height: 350px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pablo & Paula</h1>
+        <p>Nos casamos</p>
+    </header>
+
+    <div class="container">
+        <section class="photo-section">
+            <div class="photo-placeholder">
+                📷 Sustituye este espacio con vuestra foto<br>
+                <small style="display: block; margin-top: 10px;">Reemplaza la clase "photo-placeholder" con una etiqueta &lt;img&gt; apuntando a vuestra imagen</small>
+            </div>
+        </section>
+
+        <section>
+            <h2>Información del Evento</h2>
+            <div class="venue-info">
+                <div class="venue-card">
+                    <h3>💒 Ceremonia</h3>
+                    <p><strong>Lugar:</strong> [Nombre de la Iglesia/Lugar]</p>
+                    <p><strong>Dirección:</strong> [Dirección completa]</p>
+                    <p><strong>Hora:</strong> [Hora de la ceremonia]</p>
+                </div>
+                <div class="venue-card">
+                    <h3>🎉 Celebración</h3>
+                    <p><strong>Lugar:</strong> [Nombre del Restaurante/Finca]</p>
+                    <p><strong>Dirección:</strong> [Dirección completa]</p>
+                    <p><strong>Hora:</strong> [Hora del banquete]</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Itinerario</h2>
+            <div class="itinerary">
+                <div class="itinerary-item">
+                    <div class="time">12:00</div>
+                    <div class="event-details">
+                        <h4>Ceremonia</h4>
+                        <p>Bienvenida y ceremonia de boda</p>
+                    </div>
+                </div>
+                <div class="itinerary-item">
+                    <div class="time">13:30</div>
+                    <div class="event-details">
+                        <h4>Cóctel</h4>
+                        <p>Aperitivo y celebración en el jardín</p>
+                    </div>
+                </div>
+                <div class="itinerary-item">
+                    <div class="time">15:00</div>
+                    <div class="event-details">
+                        <h4>Banquete</h4>
+                        <p>Comida y brindis</p>
+                    </div>
+                </div>
+                <div class="itinerary-item">
+                    <div class="time">18:00</div>
+                    <div class="event-details">
+                        <h4>Baile</h4>
+                        <p>Fiesta y celebración hasta la noche</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Confirma tu Asistencia</h2>
+            <form id="rsvpForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-group">
+                    <label>¿Asistirás a la boda? *</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="asistencia" value="si" required>
+                            Sí, allí estaré
+                        </label>
+                        <label>
+                            <input type="radio" name="asistencia" value="no">
+                            No podré asistir
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="acompanantes">Número de acompañantes</label>
+                    <select id="acompanantes" name="acompanantes">
+                        <option value="0">Solo yo</option>
+                        <option value="1">1 acompañante</option>
+                        <option value="2">2 acompañantes</option>
+                        <option value="3">3 acompañantes</option>
+                        <option value="4">4 acompañantes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="alergias">Alergias e Intolerancias Alimentarias</label>
+                    <textarea id="alergias" name="alergias" placeholder="Por favor, indícanos si tú o tus acompañantes tenéis alguna alergia o intolerancia alimentaria (gluten, lactosa, frutos secos, etc.)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">Comentarios adicionales</label>
+                    <textarea id="comentarios" name="comentarios" placeholder="¿Algo más que quieras decirnos?"></textarea>
+                </div>
+
+                <button type="submit">Confirmar Asistencia</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                ✓ ¡Gracias por confirmar tu asistencia! Nos vemos en la boda.
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>¡Esperamos celebrar este día tan especial con vosotros!</p>
+        <p style="margin-top: 10px;">Pablo & Paula ❤️</p>
+    </footer>
+
+    <script>
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí puedes agregar el código para enviar los datos a un servidor
+            // Por ahora, solo mostraremos un mensaje de éxito
+            
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            console.log('Datos del formulario:', data);
+            
+            // Mostrar mensaje de éxito
+            document.getElementById('successMessage').style.display = 'block';
+            this.style.display = 'none';
+            
+            // Scroll al mensaje
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
