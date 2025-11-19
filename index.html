@@ -512,7 +512,34 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
 
+        /* Disable hover effects on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            section:hover {
+                transform: none;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            }
+
+            .venue-card:hover,
+            .transport-card:hover {
+                transform: none;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            }
+
+            .itinerary-item:hover {
+                transform: none;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            }
+
+            button:hover {
+                transform: none;
+            }
+        }
+
         @media (max-width: 768px) {
+            header {
+                padding: 80px 20px 60px;
+            }
+
             header h1 {
                 font-size: 3em;
                 letter-spacing: 2px;
@@ -532,9 +559,22 @@
                 font-size: 2.2em;
             }
 
+            h3 {
+                font-size: 1.6em;
+            }
+
+            .photo-section {
+                padding: 50px 25px;
+            }
+
             .venue-info {
                 grid-template-columns: 1fr;
                 gap: 25px;
+            }
+
+            .venue-card,
+            .transport-card {
+                padding: 30px 25px;
             }
 
             .itinerary::before {
@@ -547,12 +587,18 @@
                 padding: 25px;
             }
 
+            /* Disable horizontal transform on mobile to prevent scrolling */
+            .itinerary-item:hover {
+                transform: translateX(0);
+            }
+
             .time {
                 margin-bottom: 15px;
                 font-size: 1.6em;
                 min-width: auto;
             }
 
+            /* Improve touch targets for radio buttons */
             .radio-group {
                 flex-direction: column;
                 gap: 15px;
@@ -560,10 +606,152 @@
 
             .radio-group label {
                 width: 100%;
+                padding: 15px 20px;
+                min-height: 50px;
             }
 
             .photo-placeholder {
                 height: 350px;
+                font-size: 1.1em;
+            }
+
+            /* Reduce map heights on mobile */
+            .map-container iframe {
+                height: 250px !important;
+            }
+
+            /* Better button sizing for mobile */
+            button {
+                padding: 16px 40px;
+                font-size: 1.1em;
+            }
+
+            /* Improve form inputs for mobile */
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            select,
+            textarea {
+                padding: 14px 16px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+        }
+
+        /* Small phone optimizations */
+        @media (max-width: 480px) {
+            header {
+                padding: 60px 15px 50px;
+            }
+
+            header h1 {
+                font-size: 2.2em;
+                letter-spacing: 1px;
+            }
+
+            header p {
+                font-size: 1em;
+                letter-spacing: 1.5px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            section {
+                padding: 30px 20px;
+                margin: 20px 0;
+            }
+
+            h2 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+
+            h3 {
+                font-size: 1.4em;
+            }
+
+            .photo-section {
+                padding: 40px 20px;
+            }
+
+            .photo-placeholder {
+                height: 280px;
+                font-size: 1em;
+                padding: 20px;
+            }
+
+            .venue-card,
+            .transport-card {
+                padding: 25px 20px;
+            }
+
+            .venue-card h3,
+            .transport-card h3 {
+                font-size: 1.3em;
+            }
+
+            .venue-card p,
+            .transport-card p {
+                font-size: 0.95em;
+            }
+
+            /* Further optimize timeline for small screens */
+            .itinerary::before {
+                left: 30px;
+            }
+
+            .itinerary-item {
+                padding: 20px;
+                padding-left: 15px;
+            }
+
+            .time {
+                font-size: 1.4em;
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            .event-details h4 {
+                font-size: 1.2em;
+            }
+
+            .event-details p {
+                font-size: 0.95em;
+            }
+
+            .bus-route {
+                padding: 12px;
+                font-size: 0.95em;
+            }
+
+            /* Reduce map heights further on small screens */
+            .map-container iframe {
+                height: 200px !important;
+            }
+
+            /* Optimize form for small screens */
+            label {
+                font-size: 1em;
+            }
+
+            .radio-group label {
+                padding: 14px 16px;
+                font-size: 0.95em;
+            }
+
+            button {
+                padding: 15px 30px;
+                font-size: 1em;
+                letter-spacing: 0.5px;
+            }
+
+            footer {
+                padding: 40px 20px;
+                font-size: 1em;
+            }
+
+            footer p {
                 font-size: 1.1em;
             }
         }
