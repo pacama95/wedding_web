@@ -1,18 +1,18 @@
-# Integración con Google Sheets
+# Google Sheets Integration
 
-## Pasos para configurar
+## Setup Steps
 
-### 1. Crear la hoja de cálculo
+### 1. Create the spreadsheet
 
-1. Ve a [Google Sheets](https://sheets.google.com)
-2. Crea una nueva hoja llamada "Confirmaciones Boda"
-3. En la primera fila, añade estos encabezados:
-   - `Fecha` | `Nombre` | `Asistencia` | `Acompañado` | `Adultos` | `Niños` | `Autobús` | `Alergias` | `Comentarios`
+1. Go to [Google Sheets](https://sheets.google.com)
+2. Create a new sheet named "Wedding Confirmations"
+3. In the first row, add these headers:
+   - `Date` | `Name` | `Attendance` | `With Companions` | `Adults` | `Children` | `Bus` | `Allergies` | `Comments`
 
-### 2. Crear el Google Apps Script
+### 2. Create the Google Apps Script
 
-1. En tu hoja de cálculo, ve a **Extensiones** > **Apps Script**
-2. Borra el código que aparece y pega este:
+1. In your spreadsheet, go to **Extensions** > **Apps Script**
+2. Delete the existing code and paste this:
 
 ```javascript
 function doPost(e) {
@@ -54,104 +54,104 @@ function doPost(e) {
 }
 ```
 
-3. Click en **Guardar** (icono de disquete)
-4. Click en **Implementar** > **Nueva implementación**
-5. Selecciona **Aplicación web**
-6. Configura:
-   - **Descripción**: "API Confirmaciones Boda"
-   - **Ejecutar como**: Tu cuenta
-   - **Quién tiene acceso**: Cualquier persona
-7. Click en **Implementar**
-8. **COPIA LA URL** que te da (algo como: `https://script.google.com/macros/s/ABC123.../exec`)
-9. Click en **Autorizar acceso** y acepta los permisos
+3. Click **Save** (disk icon)
+4. Click **Deploy** > **New deployment**
+5. Select **Web app**
+6. Configure:
+   - **Description**: "Wedding Confirmations API"
+   - **Execute as**: Your account
+   - **Who has access**: Anyone
+7. Click **Deploy**
+8. **COPY THE URL** it gives you (something like: `https://script.google.com/macros/s/ABC123.../exec`)
+9. Click **Authorize access** and accept the permissions
 
-### 3. Actualizar el código HTML
+### 3. Update the HTML code
 
-El código HTML ya está configurado con la URL del script. Si necesitas cambiarla, busca esta línea en el archivo HTML:
+The HTML code is already configured with the script URL. If you need to change it, look for this line in the HTML file:
 
 ```javascript
-const SCRIPT_URL = 'https://script.google.com/macros/s/TU_URL_AQUI/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_URL_HERE/exec';
 ```
 
-### 4. Probar
+### 4. Test
 
-1. Abre tu web
-2. Completa el formulario
-3. Verifica que los datos aparezcan en tu Google Sheet
+1. Open your website
+2. Fill out the form
+3. Check that the data appears in your Google Sheet
 
-## Campos del formulario
+## Form fields
 
-El formulario actual incluye:
+The current form includes:
 
-- **Nombre completo** (requerido): Nombre del invitado
-- **¿Asistirás a la boda?** (requerido): Sí / No
-- **¿Vendrás acompañado/a?** (requerido): Sí / No
-  - Si selecciona "Sí", aparecen:
-    - **Número de adultos acompañantes**: 0-5
-    - **Número de niños acompañantes**: 0-5
-- **¿Necesitas autobús?** (requerido): Solo ida / Solo vuelta / Ida y vuelta / No
-- **Alergias e Intolerancias** (opcional): Texto libre
-- **Comentarios adicionales** (opcional): Texto libre
+- **Full name** (required): Guest name
+- **Will you attend the wedding?** (required): Yes / No
+- **Will you come with companion(s)?** (required): Yes / No
+  - If "Yes" is selected, these appear:
+    - **Number of adult companions**: 0-5
+    - **Number of child companions**: 0-5
+- **Do you need the bus?** (required): One-way / Return / Round trip / No
+- **Allergies and intolerances** (optional): Free text
+- **Additional comments** (optional): Free text
 
-## Ventajas
-- ✅ Completamente gratis
-- ✅ Los datos se guardan automáticamente
-- ✅ Puedes ver y exportar los datos fácilmente
-- ✅ Puedes compartir la hoja con tu pareja o wedding planner
-- ✅ No requiere servidor propio
-- ✅ Diferenciación clara entre adultos y niños para planificación
+## Advantages
+- ✅ Completely free
+- ✅ Data is saved automatically
+- ✅ Easy to view and export the data
+- ✅ You can share the sheet with your partner or wedding planner
+- ✅ No own server required
+- ✅ Clear separation between adults and children for planning
 
-## Notificaciones por Email (Opcional)
+## Email notifications (Optional)
 
-Si quieres recibir un email cada vez que alguien confirme, añade esto al Google Apps Script:
+If you want to receive an email every time someone confirms, add this to the Google Apps Script:
 
 ```javascript
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     
-    // Obtener los parámetros del formulario
-    var nombre = e.parameter.nombre || '';
-    var asistencia = e.parameter.asistencia || '';
-    var acompanado = e.parameter.acompanado || '';
-    var adultos = e.parameter.adultos || '0';
-    var ninos = e.parameter.ninos || '0';
-    var autobus = e.parameter.autobus || 'no';
-    var alergias = e.parameter.alergias || '';
-    var comentarios = e.parameter.comentarios || '';
+    // Get form parameters
+    var name = e.parameter.name || '';
+    var attendance = e.parameter.attendance || '';
+    var accompanied = e.parameter.accompanied || '';
+    var adults = e.parameter.adults || '0';
+    var children = e.parameter.children || '0';
+    var bus = e.parameter.bus || 'no';
+    var allergies = e.parameter.allergies || '';
+    var comments = e.parameter.comments || '';
     
-    // Añadir fila con los datos
+    // Add row with data
     sheet.appendRow([
       new Date(),
-      nombre,
-      asistencia,
-      acompanado,
-      adultos,
-      ninos,
-      autobus,
-      alergias,
-      comentarios
+      name,
+      attendance,
+      accompanied,
+      adults,
+      children,
+      bus,
+      allergies,
+      comments
     ]);
     
-    // Construir información de acompañantes
-    var infoAcompanantes = "No";
-    if (acompanado === "si") {
-      infoAcompanantes = "Sí - Adultos: " + adultos + ", Niños: " + ninos;
+    // Build companions information
+    var companionsInfo = "No";
+    if (accompanied === "yes") {
+      companionsInfo = "Yes - Adults: " + adults + ", Children: " + children;
     }
     
-    // Enviar email de notificación
+    // Send notification email
     var emailBody = 
-      "Nueva confirmación de asistencia:\n\n" +
-      "Nombre: " + nombre + "\n" +
-      "Asistencia: " + asistencia + "\n" +
-      "Acompañado: " + infoAcompanantes + "\n" +
-      "Autobús: " + autobus + "\n" +
-      "Alergias: " + (alergias || "Ninguna") + "\n" +
-      "Comentarios: " + (comentarios || "Ninguno");
+      "New wedding confirmation:\n\n" +
+      "Name: " + name + "\n" +
+      "Attendance: " + attendance + "\n" +
+      "Accompanied: " + companionsInfo + "\n" +
+      "Bus: " + bus + "\n" +
+      "Allergies: " + (allergies || "None") + "\n" +
+      "Comments: " + (comments || "None");
     
     MailApp.sendEmail({
-      to: "tu-email@gmail.com", // Cambia por tu email
-      subject: "Nueva confirmación de boda - " + nombre,
+      to: "your-email@gmail.com", // Change to your email
+      subject: "New wedding confirmation - " + name,
       body: emailBody
     });
     
@@ -167,51 +167,51 @@ function doPost(e) {
 }
 ```
 
-## Análisis de datos útiles
+## Useful data analysis
 
-Con esta estructura, puedes crear fórmulas en Google Sheets para:
+With this structure, you can create formulas in Google Sheets for:
 
-**Total de asistentes confirmados:**
+**Total confirmed attendees:**
 ```
-=COUNTIF(C:C,"si")
-```
-
-**Total de adultos (incluyendo invitados principales que asisten):**
-```
-=COUNTIF(C:C,"si") + SUMIF(C:C,"si",E:E)
+=COUNTIF(C:C,"yes")
 ```
 
-**Total de niños:**
+**Total adults (including main guests who are attending):**
 ```
-=SUMIF(C:C,"si",F:F)
-```
-
-**Total general de personas:**
-```
-=COUNTIF(C:C,"si") + SUMIF(C:C,"si",E:E) + SUMIF(C:C,"si",F:F)
+=COUNTIF(C:C,"yes") + SUMIF(C:C,"yes",E:E)
 ```
 
-**Personas con alergias:**
+**Total children:**
+```
+=SUMIF(C:C,"yes",F:F)
+```
+
+**Total number of people:**
+```
+=COUNTIF(C:C,"yes") + SUMIF(C:C,"yes",E:E) + SUMIF(C:C,"yes",F:F)
+```
+
+**People with allergies:**
 ```
 =COUNTIF(G:G,"<>")
 ```
 
-## Solución de Problemas
+## Troubleshooting
 
-**Problema**: Los datos no llegan a la hoja
-- Verifica que la URL del script sea correcta
-- Asegúrate de haber dado permisos al script
-- Revisa que el script esté implementado como "Cualquier persona"
+**Issue**: Data doesn’t reach the sheet
+- Check that the script URL is correct
+- Make sure you granted permissions to the script
+- Confirm the script is deployed with access set to "Anyone"
 
-**Problema**: Error de CORS
-- El código usa `mode: 'no-cors'` que es correcto para Google Apps Script
-- No puedes leer la respuesta, pero los datos sí se envían
+**Issue**: CORS error
+- The code uses `mode: 'no-cors'`, which is correct for Google Apps Script
+- You can’t read the response, but the data is still sent
 
-**Problema**: El formulario no se envía
-- Abre la consola del navegador (F12) y busca errores
-- Verifica que SCRIPT_URL esté correctamente configurado
-- Revisa el console.log para ver qué datos se están enviando
+**Issue**: The form doesn’t submit
+- Open the browser console (F12) and look for errors
+- Check that `SCRIPT_URL` is configured correctly
+- Check the console.log output to see what data is being sent
 
-**Problema**: La sección de acompañantes no aparece
-- Verifica que hayas seleccionado "Sí" en "¿Vendrás acompañado/a?"
-- La sección aparece/desaparece automáticamente según la selección
+**Issue**: Companions section does not appear
+- Check that you selected "Yes" in "Will you come with companion(s)?"
+- The section shows/hides automatically based on the selection
