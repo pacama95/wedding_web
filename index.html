@@ -828,8 +828,13 @@
             <h2>Confirma tu Asistencia</h2>
             <form id="rsvpForm">
                 <div class="form-group">
-                    <label for="nombre">Nombre completo *</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <label for="nombre">Nombre *</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan">
+                </div>
+
+                <div class="form-group">
+                    <label for="apellidos">Apellidos *</label>
+                    <input type="text" id="apellidos" name="apellidos" required placeholder="Ej: García López">
                 </div>
 
                 <div class="form-group">
@@ -926,8 +931,10 @@
         // WEBSITE CONFIGURATION
         // ============================================
         const CONFIG = {
-            // Google Apps Script URL for form submission
-            scriptUrl: 'https://script.google.com/macros/s/AKfycbyUTteAvqeo1jA3_baDEjEJai5QSyBCmiHGYIyprMqf-IhftI3flxFWn8QtgrMfBI8D/exec',
+            // Backend API URL for form submission
+            // For local development: 'http://localhost:5001/api/guests'
+            // For production: 'https://your-railway-app.railway.app/api/guests'
+            apiUrl: 'http://localhost:5001/api/guests',
             
             // Wedding Date
             weddingDate: '25 de Abril de 2026',
@@ -996,8 +1003,6 @@
                 taxi: 'Recomendamos usar Uber, Cabify o taxis para mayor comodidad. Las aplicaciones funcionan perfectamente en ambas ubicaciones.'
             }
         };
-        
-        const SCRIPT_URL = CONFIG.scriptUrl;
 
         // Load configuration on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -1079,6 +1084,7 @@
             
             const data = {
                 nombre: formData.get('nombre'),
+                apellidos: formData.get('apellidos'),
                 asistencia: formData.get('asistencia'),
                 acompanado: acompanado,
                 adultos: acompanado === 'si' ? formData.get('adultos') : '0',
@@ -1090,29 +1096,31 @@
             
             console.log('Data to send:', data); // For debugging          
             try {
-                const params = new URLSearchParams();
-                params.append('nombre', data.nombre);
-                params.append('asistencia', data.asistencia);
-                params.append('acompanado', data.acompanado);
-                params.append('adultos', data.adultos);
-                params.append('ninos', data.ninos);
-                params.append('autobus', data.autobus);
-                params.append('alergias', data.alergias);
-                params.append('comentarios', data.comentarios);
-                
-                console.log('Sending parameters:', params.toString());
-                
-                const response = await fetch(SCRIPT_URL, {
+                const response = await fetch(CONFIG.apiUrl, {
                     method: 'POST',
-                    body: params
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
                 });
                 
-                console.log('Response received:', response.status);
+                console.log('Response status:', response.status);
                 
-                // Show success message
-                document.getElementById('successMessage').style.display = 'block';
-                this.style.display = 'none';
-                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                const result = await response.json();
+                console.log('Response data:', result);
+                
+                if (response.ok) {
+                    // Success - show success message
+                    document.getElementById('successMessage').style.display = 'block';
+                    this.style.display = 'none';
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Error from server
+                    const errorMessage = result.error || 'Error al enviar el formulario';
+                    alert(errorMessage);
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
                 
             } catch (error) {
                 console.error('Complete error:', error);
