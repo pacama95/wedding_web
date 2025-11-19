@@ -104,25 +104,41 @@ docker-compose down
 
 ## Railway Deployment
 
-### 1. Create a New Project on Railway
+### 1. Create Railway Project
 1. Go to [Railway](https://railway.app)
-2. Click "New Project"
+2. Create a new project
 3. Select "Deploy from GitHub repo"
 4. Connect your repository
 
-### 2. Add PostgreSQL Database
+### 2. Configure Root Directory
+Railway needs to know to deploy from the `backend` folder:
+
+**Option A: Using Railway Dashboard (Recommended)**
+1. Go to your Railway project settings
+2. Under "Service Settings" → "Root Directory"
+3. Set to: `backend`
+
+**Option B: Using Configuration Files**
+The repository includes `railway.toml` and `nixpacks.toml` at the root that configure Railway to use the backend directory.
+
+### 3. Add PostgreSQL Database
 1. In your Railway project, click "New"
 2. Select "Database" → "PostgreSQL"
 3. Railway will automatically set the `DATABASE_URL` environment variable
 
-### 3. Configure Environment Variables
+### 4. Configure Environment Variables
 In Railway project settings, add:
 
 - `DATABASE_URL` - (automatically set by Railway PostgreSQL)
 - `GOOGLE_APPS_SCRIPT_URL` - Your Google Apps Script URL (optional)
 
-### 4. Deploy
+### 5. Deploy
 Railway will automatically deploy your application when you push to your repository.
+
+**Verify Deployment:**
+- Check that Railway is using Python (not serving static HTML)
+- Test the health endpoint: `https://your-app.railway.app/health`
+- Should return: `{"status": "healthy"}`
 
 ## Google Sheets Setup
 
