@@ -1,226 +1,226 @@
-# 💍 Sitio Web de Boda - Pablo & Paula
+# 💍 Wedding Website - Pablo & Paula
 
-Una elegante página web para bodas, completamente responsive y personalizable.
+An elegant wedding website, fully responsive and easy to customize.
 
-## 🌟 Características
+## 🌟 Features
 
-- ✨ Diseño elegante y moderno con animaciones suaves
-- 📱 Totalmente responsive (se adapta a móviles, tablets y escritorio)
-- 🖼️ Sección para foto de los novios
-- 📍 Información detallada de ceremonia y celebración
-- 🗺️ Mapas de Google Maps integrados para ambos lugares
-- ⏰ Itinerario completo del evento (configurable dinámicamente)
-- 🚌 Información de transporte (autobús, aparcamiento, taxi/Uber)
-- ⚙️ Configuración centralizada para fácil personalización
-- 📝 Formulario de confirmación de asistencia con:
-  - Confirmación Sí/No
-  - Opción de asistir acompañado
-  - Número de adultos acompañantes (0-5)
-  - Número de niños acompañantes (0-5)
-  - Selección de transporte en autobús (Solo ida / Solo vuelta / Ida y vuelta / No)
-  - Campo para alergias e intolerancias alimentarias
-  - Comentarios adicionales
-- 🎨 Paleta de colores elegante en tonos dorados y tierra
-- 🔤 Tipografías premium (Playfair Display y Lato)
+- ✨ Modern and elegant design with smooth animations
+- 📱 Fully responsive (adapts to mobile, tablet, and desktop)
+- 🖼️ Section for the couple's photo
+- 📍 Detailed ceremony and reception information
+- 🗺️ Embedded Google Maps for both locations
+- ⏰ Full event schedule (dynamically configurable)
+- 🚌 Transportation information (bus, parking, taxi/Uber)
+- ⚙️ Centralized configuration for easy customization
+- 📝 RSVP form with:
+  - Yes/No attendance confirmation
+  - Option to attend with companion(s)
+  - Number of adult companions (0-5)
+  - Number of child companions (0-5)
+  - Bus transport selection (One-way / Return / Round trip / No)
+  - Field for food allergies and intolerances
+  - Additional comments
+- 🎨 Elegant color palette in gold and earthy tones
+- 🔤 Premium fonts (Playfair Display and Lato)
 
-## 🚀 Cómo Usar
+## 🚀 How to Use
 
-### Subir a GitHub Pages
+### Deploy to GitHub Pages
 
-1. Descarga el archivo `boda-pablo-paula.html`
-2. Renómbralo a `index.html`
-3. Sube el archivo a tu repositorio de GitHub
-4. Activa GitHub Pages en la configuración del repositorio
-5. Tu web estará disponible en: `https://tu-usuario.github.io/nombre-repositorio/`
+1. Download the `boda-pablo-paula.html` file
+2. Rename it to `index.html`
+3. Upload the file to your GitHub repository
+4. Enable GitHub Pages in the repository settings
+5. Your site will be available at: `https://your-username.github.io/repository-name/`
 
-### Ver localmente
+### View locally
 
-Simplemente abre el archivo HTML en tu navegador web favorito.
+Simply open the HTML file in your favorite web browser.
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### 1. Configuración Centralizada
+### 1. Centralized Configuration
 
-Toda la configuración de la web se encuentra en el objeto `CONFIG` al inicio del `<script>` (líneas ~668-720). Aquí puedes modificar:
+All site configuration is in the `CONFIG` object at the beginning of the `<script>` (lines ~668-720). Here you can modify:
 
-**Fecha de la Boda:**
+**Wedding Date:**
 ```javascript
-weddingDate: '25 de Abril de 2026'
+weddingDate: 'April 25, 2026'
 ```
 
-**URL de la Foto:**
+**Photo URL:**
 ```javascript
 photoUrl: 'https://i.imgur.com/YOUR_IMAGE.jpg'
 ```
 
-**Información de la Ceremonia:**
+**Ceremony Information:**
 ```javascript
 ceremonia: {
-    lugar: 'Iglesia de San Miguel',
-    direccion: 'Calle Principal 123, Madrid',
+    lugar: 'San Miguel Church',
+    direccion: '123 Main Street, Madrid',
     hora: '12:00 PM'
 }
 ```
 
-**Información de la Celebración:**
+**Reception Information:**
 ```javascript
 celebracion: {
-    lugar: 'Finca Los Olivos',
-    direccion: 'Carretera de Toledo km 15, Madrid',
-    hora: '14:00 PM'
+    lugar: 'Los Olivos Estate',
+    direccion: 'Toledo Road km 15, Madrid',
+    hora: '2:00 PM'
 }
 ```
 
-**Itinerario de Eventos:**
+**Event Schedule:**
 ```javascript
 itinerario: [
     {
         hora: '12:00',
-        titulo: 'Ceremonia',
-        descripcion: 'Bienvenida y ceremonia de boda'
+        titulo: 'Ceremony',
+        descripcion: 'Welcome and wedding ceremony'
     },
-    // Añade más eventos aquí
+    // Add more events here
 ]
 ```
 
-### 2. Nombres
+### 2. Names
 
-Busca y reemplaza los nombres en el archivo HTML:
+Find and replace the names in the HTML file:
 
-- **Nombres**: `Pablo & Paula` (línea ~525)
+- **Names**: `Pablo & Paula` (line ~525)
 
-**Nota:** La fecha ahora se configura en el objeto CONFIG (ver punto 1)
+**Note:** The date is now configured in the CONFIG object (see point 1).
 
-### 3. Foto de los Novios
+### 3. Couple Photo
 
-**Nota:** La foto ahora se configura en el objeto CONFIG (ver punto 1). Solo necesitas actualizar la URL.
+**Note:** The photo is now configured in the CONFIG object (see point 1). You only need to update the URL.
 
-**Opciones para obtener la URL de la foto:**
-- **Opción 1 (Recomendada)**: Sube a [Imgur](https://imgur.com/upload), copia la URL de la imagen
-- **Opción 2**: Usa GitHub Issues - arrastra la foto en un issue, copia la URL generada
-- **Opción 3**: Sube la foto a la carpeta del repositorio y usa: `./nombre-foto.jpg`
+**Options to get the photo URL:**
+- **Option 1 (Recommended)**: Upload to [Imgur](https://imgur.com/upload) and copy the image URL
+- **Option 2**: Use GitHub Issues – drag the photo into an issue and copy the generated URL
+- **Option 3**: Upload the photo to the repository folder and use: `./photo-name.jpg`
 
-### 4. Información de Lugares e Itinerario
+### 4. Location & Schedule Information
 
-**Ahora todo se configura desde el objeto CONFIG** (ver punto 1). Los cambios se aplican automáticamente en toda la web.
+**Everything is now configured from the CONFIG object** (see point 1). Changes are automatically applied throughout the site.
 
-Para añadir más eventos al itinerario, simplemente añade objetos al array:
+To add more events to the schedule, just add objects to the array:
 ```javascript
 {
     hora: '20:00',
-    titulo: 'Barra Libre',
-    descripcion: 'Cócteles y diversión'
+    titulo: 'Open Bar',
+    descripcion: 'Cocktails and fun'
 }
 ```
 
-**Información de Transporte:**
+**Transportation Information:**
 ```javascript
 transporte: {
     autobus: {
         ida: {
             lugar: 'Plaza de Cibeles',
             hora: '10:45',
-            descripcion: 'El autobús saldrá hacia la ceremonia'
+            descripcion: 'The bus will depart for the ceremony'
         },
         vuelta: {
             lugar: 'Finca La Gaivota',
             hora: '23:30',
-            descripcion: 'El autobús regresará al punto de partida'
+            descripcion: 'The bus will return to the departure point'
         }
     },
-    aparcamiento: 'Mensaje sobre aparcamiento limitado...',
-    taxi: 'Recomendaciones sobre Uber/Cabify/Taxi...'
+    aparcamiento: 'Message about limited parking...',
+    taxi: 'Recommendations about Uber/Cabify/Taxi...'
 }
 ```
 
-### 5. URL del Google Apps Script
+### 5. Google Apps Script URL
 
-En el objeto CONFIG, actualiza la URL de tu script:
+In the CONFIG object, update the URL of your script:
 ```javascript
-scriptUrl: 'https://script.google.com/macros/s/TU_URL_AQUI/exec'
+scriptUrl: 'https://script.google.com/macros/s/YOUR_URL_HERE/exec'
 ```
 
-### 6. Colores del Sitio
+### 6. Site Colors
 
-Los colores principales se definen en las variables CSS. Busca estos valores y cámbialos:
+The main colors are defined in CSS variables. Find these values and change them:
 
-- **Color principal**: `#8b6f47` (marrón dorado)
-- **Color secundario**: `#d4af7a` (dorado claro)
-- **Gradientes**: `#e8dcc4`, `#d4c4a8`, `#c9b896`
+- **Primary color**: `#8b6f47` (golden brown)
+- **Secondary color**: `#d4af7a` (light gold)
+- **Gradients**: `#e8dcc4`, `#d4c4a8`, `#c9b896`
 
-Ejemplo para cambiar el color principal a azul:
+Example to change the primary color to blue:
 ```css
-/* Busca #8b6f47 y reemplaza con */
+/* Find #8b6f47 and replace with */
 #4a7c8b
 ```
 
-### 7. Tipografías
+### 7. Fonts
 
-Las fuentes actuales son:
-- **Títulos**: Playfair Display (serif elegante)
-- **Texto**: Lato (sans-serif moderna)
+Current fonts:
+- **Headings**: Playfair Display (elegant serif)
+- **Body text**: Lato (modern sans-serif)
 
-Para cambiar, modifica la línea ~6:
+To change them, edit around line ~6:
 ```css
-@import url('https://fonts.googleapis.com/css2?family=TU-FUENTE&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=YOUR-FONT&display=swap');
 ```
 
-Luego actualiza las referencias de `font-family` en el CSS.
+Then update the `font-family` references in the CSS.
 
-### 8. Formulario de Confirmación
+### 8. RSVP Form
 
-El formulario actualmente envía datos a Google Sheets usando Google Apps Script.
+The form currently sends data to Google Sheets using Google Apps Script.
 
-**Estructura actual del formulario:**
-- Nombre completo (requerido)
-- ¿Asistirás a la boda? (Sí/No - requerido)
-- ¿Vendrás acompañado/a? (Sí/No - requerido)
-  - Si es "Sí", se muestran:
-    - Número de adultos acompañantes (0-5)
-    - Número de niños acompañantes (0-5)
-- ¿Necesitas autobús? (Solo ida / Solo vuelta / Ida y vuelta / No - requerido)
-- Alergias e intolerancias (opcional)
-- Comentarios adicionales (opcional)
+**Current form structure:**
+- Full name (required)
+- Will you attend the wedding? (Yes/No – required)
+- Will you come with companion(s)? (Yes/No – required)
+  - If "Yes" is selected, these fields appear:
+    - Number of adult companions (0-5)
+    - Number of child companions (0-5)
+- Do you need the bus? (One-way / Return / Round trip / No – required)
+- Allergies and intolerances (optional)
+- Additional comments (optional)
 
-**Para configurar el almacenamiento:**
+**To configure storage:**
 
-Ver el archivo `google-sheets-integration.md` para instrucciones detalladas.
+See the `google-sheets-integration.md` file for detailed instructions.
 
-**Campos que se envían:**
+**Fields being sent:**
 ```javascript
 {
-  nombre: "Nombre del invitado",
-  asistencia: "si" o "no",
-  acompanado: "si" o "no",
-  adultos: "0" a "5",
-  ninos: "0" a "5",
-  autobus: "solo_ida", "solo_vuelta", "ida_y_vuelta" o "no",
-  alergias: "texto libre",
-  comentarios: "texto libre"
+  nombre: "Guest name",
+  asistencia: "si" or "no",
+  acompanado: "si" or "no",
+  adultos: "0" to "5",
+  ninos: "0" to "5",
+  autobus: "solo_ida", "solo_vuelta", "ida_y_vuelta" or "no",
+  alergias: "free text",
+  comentarios: "free text"
 }
 ```
 
-**Otras opciones disponibles:**
+**Other available options:**
 - Formspree (email notifications)
-- Firebase (base de datos en tiempo real)
-- EmailJS (envío directo por email)
-- Backend propio
+- Firebase (real-time database)
+- EmailJS (direct email sending)
+- Custom backend
 
-Ver `storage-options.md` para más alternativas.
+See `storage-options.md` for more alternatives.
 
-### 9. Mapas de Ubicación
+### 9. Location Maps
 
-Los mapas de Google Maps ya están integrados en las tarjetas de ceremonia y celebración. Para cambiarlos:
+Google Maps iframes are already embedded in the ceremony and reception cards. To change them:
 
-1. Ve a [Google Maps](https://www.google.com/maps)
-2. Busca tu ubicación
-3. Click en **"Compartir"** > **"Incorporar un mapa"**
-4. Copia el código iframe
-5. Reemplaza el iframe existente en el HTML (líneas ~534 para ceremonia, ~543 para celebración)
+1. Go to [Google Maps](https://www.google.com/maps)
+2. Search for your location
+3. Click **"Share"** > **"Embed a map"**
+4. Copy the iframe code
+5. Replace the existing iframe in the HTML (lines ~534 for ceremony, ~543 for reception)
 
-**Ejemplo:**
+**Example:**
 ```html
-<iframe src="https://www.google.com/maps/embed?pb=TU_CODIGO_AQUI" 
+<iframe src="https://www.google.com/maps/embed?pb=YOUR_CODE_HERE" 
         width="100%" 
         height="300" 
         style="border:0; border-radius: 8px; margin-top: 20px;" 
@@ -230,83 +230,83 @@ Los mapas de Google Maps ya están integrados en las tarjetas de ceremonia y cel
 </iframe>
 ```
 
-Los mapas son completamente responsive y se adaptan a todos los dispositivos.
+The maps are fully responsive and adapt to all devices.
 
-## 📋 Estructura del Archivo
+## 📋 File Structure
 
 ```
 boda-pablo-paula.html
 │
 ├── <head>
 │   ├── Meta tags
-│   ├── Título
-│   └── Estilos CSS
+│   ├── Title
+│   └── CSS styles
 │
 ├── <header>
-│   └── Nombres y fecha de boda
+│   └── Names and wedding date
 │
-├── <section> Foto
-│   └── Imagen de los novios
+├── <section> Photo
+│   └── Couple photo
 │
-├── <section> Información del Evento
-│   ├── Tarjeta de Ceremonia
-│   └── Tarjeta de Celebración
+├── <section> Event Information
+│   ├── Ceremony card
+│   └── Reception card
 │
-├── <section> Itinerario
-│   └── Timeline de eventos
+├── <section> Schedule
+│   └── Timeline of events
 │
-├── <section> Formulario RSVP
-│   └── Confirmación de asistencia
+├── <section> RSVP Form
+│   └── Attendance confirmation
 │
 └── <footer>
-    └── Mensaje de despedida
+    └── Farewell message
 ```
 
-## 🎯 Consejos de Personalización
+## 🎯 Customization Tips
 
-### Para una boda elegante/formal:
-- Mantén los colores actuales (dorados y marrones)
-- Usa fotos profesionales en blanco y negro
-- Mantén el texto conciso y elegante
+### For an elegant/formal wedding:
+- Keep the current colors (golds and browns)
+- Use professional black-and-white photos
+- Keep the text concise and elegant
 
-### Para una boda casual/rústica:
-- Cambia colores a verdes y marrones tierra: `#6b8e6b`, `#8b7355`
-- Añade texturas de madera en los fondos
-- Usa un tono más informal en los textos
+### For a casual/rustic wedding:
+- Change the colors to earthy greens and browns: `#6b8e6b`, `#8b7355`
+- Add wooden textures in the backgrounds
+- Use a more informal tone in the text
 
-### Para una boda moderna/minimalista:
-- Simplifica a blanco y negro: `#000000`, `#ffffff`, `#808080`
-- Reduce las animaciones
-- Usa tipografías sans-serif como Montserrat
+### For a modern/minimalist wedding:
+- Simplify to black and white: `#000000`, `#ffffff`, `#808080`
+- Reduce animations
+- Use sans-serif fonts like Montserrat
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
 - HTML5
-- CSS3 (con animaciones y gradientes)
-- JavaScript vanilla (sin dependencias)
-- Google Fonts (Playfair Display y Lato)
+- CSS3 (with animations and gradients)
+- Vanilla JavaScript (no dependencies)
+- Google Fonts (Playfair Display and Lato)
 
-## 📱 Compatibilidad
+## 📱 Compatibility
 
-- ✅ Chrome (todas las versiones recientes)
-- ✅ Firefox (todas las versiones recientes)
-- ✅ Safari (iOS y macOS)
-- ✅ Edge (todas las versiones recientes)
-- ✅ Dispositivos móviles (responsive design)
+- ✅ Chrome (all recent versions)
+- ✅ Firefox (all recent versions)
+- ✅ Safari (iOS and macOS)
+- ✅ Edge (all recent versions)
+- ✅ Mobile devices (responsive design)
 
-## 📞 Soporte
+## 📞 Support
 
-Si encuentras algún problema o tienes preguntas:
-1. Revisa la sección de personalización
-2. Verifica que todos los cambios estén dentro de las etiquetas correctas
-3. Asegúrate de que las comillas y paréntesis estén balanceados
+If you run into problems or have questions:
+1. Review the customization section
+2. Check that all changes are inside the correct tags
+3. Make sure quotes and parentheses are balanced
 
-## 📝 Licencia
+## 📝 License
 
-Este proyecto es de uso libre. Siéntete libre de usarlo y modificarlo para tu boda.
+This project is free to use. Feel free to use it and modify it for your wedding.
 
 ---
 
-**¡Felicidades por tu boda!** 🎉💕
+**Congratulations on your wedding!** 🎉💕
 
-Si necesitas ayuda adicional o quieres añadir más funcionalidades, no dudes en modificar el código o buscar tutoriales de HTML/CSS básicos.
+If you need additional help or want to add more functionality, feel free to modify the code or look up basic HTML/CSS tutorials.
