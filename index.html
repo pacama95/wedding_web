@@ -17,13 +17,21 @@
             font-family: 'Lato', sans-serif;
             line-height: 1.8;
             color: #2c2c2c;
-            background: linear-gradient(to bottom, #fdfbf7 0%, #f5f0e8 100%);
+            background: linear-gradient(to bottom, rgba(253,251,247,0.92) 0%, rgba(245,240,232,0.92) 100%),
+                        url('images/olive_branch.JPG');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             overflow-x: hidden;
         }
 
         header {
             position: relative;
-            background: linear-gradient(135deg, #e8dcc4 0%, #d4c4a8 50%, #c9b896 100%);
+            background: linear-gradient(135deg, rgba(232,220,196,0.92) 0%, rgba(212,196,168,0.92) 50%, rgba(201,184,150,0.92) 100%),
+                        url('images/top_candles_and_branches.JPG');
+            background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
             padding: 120px 20px 100px;
@@ -196,6 +204,45 @@
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        /* Decorative images */
+        .decorative-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+
+        .corner-decoration {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            opacity: 0.25;
+            pointer-events: none;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        .corner-decoration.top-left {
+            top: -20px;
+            left: -20px;
+        }
+
+        .corner-decoration.top-right {
+            top: -20px;
+            right: -20px;
+        }
+
+        .corner-decoration.bottom-left {
+            bottom: -20px;
+            left: -20px;
+        }
+
+        .corner-decoration.bottom-right {
+            bottom: -20px;
+            right: -20px;
         }
 
         .venue-info {
@@ -510,6 +557,12 @@
             font-size: 1.3em;
             margin: 10px 0;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer img {
+            z-index: 1;
         }
 
         /* Disable hover effects on touch devices */
@@ -565,6 +618,13 @@
 
             .photo-section {
                 padding: 50px 25px;
+            }
+
+            /* Hide corner decorations on mobile for cleaner look */
+            .corner-decoration {
+                width: 100px;
+                height: 100px;
+                opacity: 0.15;
             }
 
             .venue-info {
@@ -754,6 +814,12 @@
             footer p {
                 font-size: 1.1em;
             }
+
+            footer img {
+                width: 80px !important;
+                height: 80px !important;
+                opacity: 0.4 !important;
+            }
         }
     </style>
 </head>
@@ -940,7 +1006,7 @@
             weddingDate: '25 de Abril de 2026',
             
             // Couple Photo URL (use Imgur, GitHub Issues, or add to repo)
-            photoUrl: 'https://github.com/user-attachments/assets/340f76c1-5955-4a3a-ae86-0a7dd3ceb2e6',
+            photoUrl: 'images/pabloypaula.png',
             
             // Ceremony Information
             ceremonia: {
