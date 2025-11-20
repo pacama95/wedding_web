@@ -2,6 +2,8 @@
 
 An elegant wedding website, fully responsive and easy to customize.
 
+> **Disclaimer:** This is a small personal project created as a quick solution for my wedding website. It is not intended to showcase best practices or production-ready standards.
+
 ## 🌟 Features
 
 - ✨ Modern and elegant design with smooth animations
